@@ -1,3 +1,5 @@
+package me.kafkaparallelconsumer.listener
+
 import io.confluent.parallelconsumer.ParallelConsumerOptions
 import org.springframework.messaging.handler.annotation.MessageMapping
 

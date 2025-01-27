@@ -1,8 +1,8 @@
 package me.kafkaparallelconsumer.consumer
 
-import KafkaParallelListener
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.confluent.parallelconsumer.ParallelConsumerOptions
+import me.kafkaparallelconsumer.listener.KafkaParallelListener
 import me.kafkaparallelconsumer.model.Topic.PARALLEL_USER_TOPIC
 import me.kafkaparallelconsumer.model.Topic.USER_TOPIC
 import me.kafkaparallelconsumer.model.UserMessage

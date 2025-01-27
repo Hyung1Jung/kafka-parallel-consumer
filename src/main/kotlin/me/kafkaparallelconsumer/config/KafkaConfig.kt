@@ -32,8 +32,7 @@ class KafkaConfig(
     @Bean
     @Primary
     fun kafkaListenerContainerFactory(
-        consumerFactory: ConsumerFactory<String, Any>,
-        kafkaTemplate: KafkaTemplate<String, Any>,
+        consumerFactory: ConsumerFactory<String, Any>
     ): ConcurrentKafkaListenerContainerFactory<String, Any> {
         return ConcurrentKafkaListenerContainerFactory<String, Any>().apply {
             this.consumerFactory = consumerFactory
