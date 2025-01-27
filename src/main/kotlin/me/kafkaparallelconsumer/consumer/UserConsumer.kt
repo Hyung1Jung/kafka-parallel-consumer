@@ -44,8 +44,8 @@ class UserConsumer(
     @KafkaParallelListener(
         topics = [PARALLEL_USER_TOPIC],
         groupId = "parallel-user-consumer-group",
-        concurrency = 3,
-        ordering = ParallelConsumerOptions.ProcessingOrder.KEY
+        concurrency = 1,
+        ordering = ParallelConsumerOptions.ProcessingOrder.UNORDERED
     )
     fun listen(
         record: ConsumerRecord<String, String>,

@@ -10,7 +10,7 @@ class KafkaParallelConsumerFactory<K, V> {
         kafkaConsumerFactory: ConsumerFactory<K, V>,
         topics: Array<String>,
         ordering: ParallelConsumerOptions.ProcessingOrder = ParallelConsumerOptions.ProcessingOrder.KEY,
-        maxConcurrency: Int = 3,
+        maxConcurrency: Int = 1,
         groupId: String,
         clientIdPrefix: String,
         clientIdSuffix: String,

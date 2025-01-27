@@ -22,7 +22,7 @@ class UserController(
 
     private fun createUserMessages() = (1..10).map { index ->
         UserMessage(
-            id = index.toLong(),
+            id = 1L,
             age = index.toLong(),
             "name$index",
         )

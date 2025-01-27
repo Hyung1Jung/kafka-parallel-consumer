@@ -92,7 +92,7 @@ class KafkaConfig(
     fun parallelConsumer(parallelKafkaConsumer: KafkaConsumer<String, Any>): ParallelStreamProcessor<String, Any> {
         val options = ParallelConsumerOptions.builder<String, Any>()
             .consumer(parallelKafkaConsumer)
-            .ordering(ParallelConsumerOptions.ProcessingOrder.UNORDERED)
+            .ordering(ParallelConsumerOptions.ProcessingOrder.KEY)
             .maxConcurrency(3)
             .build()
         return ParallelStreamProcessor.createEosStreamProcessor(options)
