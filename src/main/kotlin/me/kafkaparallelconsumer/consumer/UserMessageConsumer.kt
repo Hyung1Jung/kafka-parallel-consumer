@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component
 
 
 @Component
-class UserConsumer(
+class UserMessageConsumer(
     private val objectMapper: ObjectMapper,
 ) {
 
@@ -44,8 +44,8 @@ class UserConsumer(
     @KafkaParallelListener(
         topics = [PARALLEL_USER_TOPIC],
         groupId = "parallel-user-consumer-group",
-        concurrency = 1,
-        ordering = ParallelConsumerOptions.ProcessingOrder.UNORDERED
+        concurrency = 3,
+        ordering = ParallelConsumerOptions.ProcessingOrder.KEY
     )
     fun listen(
         record: ConsumerRecord<String, String>,

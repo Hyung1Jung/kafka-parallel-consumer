@@ -7,7 +7,7 @@ import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Component
 
 @Component
-class UserProducer(
+class UserMessageProducer(
     private val kafkaTemplate: KafkaTemplate<String, Any>,
     private val objectMapper: ObjectMapper,
 ) {
