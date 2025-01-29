@@ -10,19 +10,24 @@ class UserController(
     private val userMessageProducer: UserMessageProducer,
 ) {
 
-    @PostMapping("/test")
-    fun test() {
+    @PostMapping("/send")
+    fun send() {
         createUserMessages().forEach { userMessageProducer.sendMessage(it) }
     }
 
-    @PostMapping("/parallel-test")
-    fun parallelTest() {
+    @PostMapping("/parallel-send")
+    fun parallelSend() {
         createUserMessages().forEach { userMessageProducer.sendParallelMessage(it) }
+    }
+
+    @PostMapping("/batch-parallel-send")
+    fun batchParallelSend() {
+        createUserMessages().forEach { userMessageProducer.sendBatchParallelMessage(it) }
     }
 
     private fun createUserMessages() = (1..10).map { index ->
         UserMessage(
-            id = index.toLong() % 2,
+            id = index.toLong(),
             age = index.toLong(),
             "name$index",
         )

@@ -4,13 +4,14 @@ import io.confluent.parallelconsumer.ParallelConsumerOptions
 import io.confluent.parallelconsumer.ParallelStreamProcessor
 import org.springframework.kafka.core.ConsumerFactory
 
-class KafkaParallelConsumerFactory<K, V> {
+class KafkaParallelStreamProcessorFactory<K, V> {
 
-    fun createConsumerProcessor(
+    fun createParallelStreamProcessor(
         kafkaConsumerFactory: ConsumerFactory<K, V>,
         topics: Array<String>,
-        ordering: ParallelConsumerOptions.ProcessingOrder = ParallelConsumerOptions.ProcessingOrder.KEY,
-        maxConcurrency: Int = 3,
+        ordering: ParallelConsumerOptions.ProcessingOrder,
+        maxConcurrency: Int,
+        batchSize: Int,
         groupId: String,
         clientIdPrefix: String,
         clientIdSuffix: String,
@@ -18,6 +19,7 @@ class KafkaParallelConsumerFactory<K, V> {
         val options: ParallelConsumerOptions<K, V> = ParallelConsumerOptions.builder<K, V>()
             .ordering(ordering)
             .maxConcurrency(maxConcurrency)
+            .batchSize(batchSize)
             .consumer(
                 kafkaConsumerFactory.createConsumer(
                     groupId.takeIf { it.isNotEmpty() },
@@ -26,9 +28,8 @@ class KafkaParallelConsumerFactory<K, V> {
                 ),
             )
             .build()
-        val processor = ParallelStreamProcessor.createEosStreamProcessor(options)
-        processor.subscribe(topics.toList())
-
-        return processor
+        val eosStreamProcessor = ParallelStreamProcessor.createEosStreamProcessor(options)
+        eosStreamProcessor.subscribe(topics.toList())
+        return eosStreamProcessor
     }
 }

@@ -22,4 +22,10 @@ class UserMessageProducer(
         val value = objectMapper.writeValueAsString(message)
         kafkaTemplate.send(Topic.PARALLEL_USER_TOPIC, key, value)
     }
+
+    fun sendBatchParallelMessage(message: UserMessage) {
+        val key = message.id.toString()
+        val value = objectMapper.writeValueAsString(message)
+        kafkaTemplate.send(Topic.BATCH_PARALLEL_USER_TOPIC, key, value)
+    }
 }

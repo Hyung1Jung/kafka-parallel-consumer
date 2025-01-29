@@ -10,7 +10,9 @@ import org.springframework.messaging.handler.annotation.MessageMapping
 annotation class KafkaParallelListener(
     val topics: Array<String>,
     val groupId: String = "",
-    val concurrency: Int = 3,
+    val maxConcurrency: Int = ParallelConsumerOptions.DEFAULT_MAX_CONCURRENCY,
+    val batchSize: Int = 1,
     val ordering: ParallelConsumerOptions.ProcessingOrder = ParallelConsumerOptions.ProcessingOrder.KEY,
     val clientIdPrefix: String = "",
+    val clientIdSuffix: String = "",
 )
