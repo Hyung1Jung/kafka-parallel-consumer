@@ -45,7 +45,7 @@ class UserMessageConsumer(
     @KafkaParallelListener(
         topics = [PARALLEL_USER_TOPIC],
         groupId = "parallel-user-consumer-group",
-        maxConcurrency = 1,
+        maxConcurrency = 3,
         batchSize = 1,
         ordering = ParallelConsumerOptions.ProcessingOrder.UNORDERED
     )
@@ -69,7 +69,7 @@ class UserMessageConsumer(
         topics = [BATCH_PARALLEL_USER_TOPIC],
         groupId = "parallel-user-consumer-group",
         maxConcurrency = 1,
-        batchSize = 4,
+        batchSize = 10,
         ordering = ParallelConsumerOptions.ProcessingOrder.UNORDERED
     )
     fun batchListen(
