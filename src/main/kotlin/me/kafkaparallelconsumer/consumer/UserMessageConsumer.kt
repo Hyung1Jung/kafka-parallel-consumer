@@ -29,12 +29,9 @@ class UserMessageConsumer(
         acknowledgment: Acknowledgment,
     ) {
         try {
-            val startTime = System.currentTimeMillis()
             val message = objectMapper.readValue(record.value(), UserMessage::class.java)
             log.info("[Main Consumer(${Thread.currentThread().id})] Message arrived! - $message")
             Thread.sleep(1000)
-            val endTime = System.currentTimeMillis()
-            log.info("[Main Consumer(${Thread.currentThread().id})] Processing time: ${endTime - startTime} ms")
             acknowledgment.acknowledge()
         } catch (e: InterruptedException) {
             e.printStackTrace()
@@ -52,12 +49,9 @@ class UserMessageConsumer(
         record: ConsumerRecord<String, String>,
     ) {
         try {
-            val startTime = System.currentTimeMillis()
             val message = objectMapper.readValue(record.value(), UserMessage::class.java)
             log.info("[Main Consumer(${Thread.currentThread().id})] Message arrived! - $message")
             Thread.sleep(1000)
-            val endTime = System.currentTimeMillis()
-            log.info("[Main Consumer(${Thread.currentThread().id})] Processing time: ${endTime - startTime} ms")
         } catch (e: InterruptedException) {
             e.printStackTrace()
             log.info(e.message)
@@ -75,12 +69,9 @@ class UserMessageConsumer(
         records: List<ConsumerRecord<String, String>>,
     ) {
         try {
-            val startTime = System.currentTimeMillis()
             val messages = records.map { it.value() }
             log.info("[Main Consumer(${Thread.currentThread().id})] Messages arrived! - $messages")
             Thread.sleep(1000)
-            val endTime = System.currentTimeMillis()
-            log.info("[Main Consumer(${Thread.currentThread().id})] Processing time: ${endTime - startTime} ms")
         } catch (e: InterruptedException) {
             e.printStackTrace()
             log.info(e.message)
