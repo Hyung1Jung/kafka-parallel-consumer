@@ -49,7 +49,6 @@ class KafkaParallelStreamProcessor(
                 val records = context.consumerRecordsFlattened
                 val parameterType = method.parameterTypes.firstOrNull()
                 if (parameterType != null && parameterType.isAssignableFrom(List::class.java)) {
-                    log.info("Processing batch of size: ${records.size}")
                     method.invoke(bean, records)
                     return@poll
                 }
