@@ -66,7 +66,7 @@ class UserMessageConsumer(
 
     @KafkaParallelListener(
         topics = [BATCH_PARALLEL_USER_TOPIC],
-        groupId = "parallel-user-consumer-group",
+        groupId = "batch-parallel-user-consumer-group",
         maxConcurrency = 1,
         batchSize = 4,
         ordering = ParallelConsumerOptions.ProcessingOrder.UNORDERED
