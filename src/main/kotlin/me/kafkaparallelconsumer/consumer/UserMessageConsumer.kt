@@ -46,7 +46,6 @@ class UserMessageConsumer(
         topics = [PARALLEL_USER_TOPIC],
         groupId = "parallel-user-consumer-group",
         maxConcurrency = 3,
-        batchSize = 1,
         ordering = ParallelConsumerOptions.ProcessingOrder.UNORDERED
     )
     fun listen(
@@ -69,7 +68,7 @@ class UserMessageConsumer(
         topics = [BATCH_PARALLEL_USER_TOPIC],
         groupId = "parallel-user-consumer-group",
         maxConcurrency = 1,
-        batchSize = 10,
+        batchSize = 4,
         ordering = ParallelConsumerOptions.ProcessingOrder.UNORDERED
     )
     fun batchListen(
