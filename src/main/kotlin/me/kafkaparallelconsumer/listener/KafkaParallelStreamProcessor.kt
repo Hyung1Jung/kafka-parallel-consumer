@@ -37,7 +37,7 @@ class KafkaParallelStreamProcessor(
                 kafkaConsumerFactory = kafkaConsumerFactory,
                 topics = topics,
                 ordering = ordering,
-                maxConcurrency = maxConcurrency,
+                concurrency = concurrency,
                 batchSize = batchSize,
                 groupId = groupId,
                 clientIdPrefix = clientIdPrefix,
@@ -61,8 +61,7 @@ class KafkaParallelStreamProcessor(
     }
 
     override fun destroy() {
-        log.info("Closing all Kafka Parallel Consumers...")
-        consumers.forEach { it.close() }
+        consumers.forEach(ParallelStreamProcessor<String, Any>::close)
     }
 
     companion object {

@@ -10,7 +10,7 @@ class KafkaParallelStreamProcessorFactory<K, V> {
         kafkaConsumerFactory: ConsumerFactory<K, V>,
         topics: Array<String>,
         ordering: ParallelConsumerOptions.ProcessingOrder,
-        maxConcurrency: Int,
+        concurrency: Int,
         batchSize: Int,
         groupId: String,
         clientIdPrefix: String,
@@ -18,7 +18,7 @@ class KafkaParallelStreamProcessorFactory<K, V> {
     ): ParallelStreamProcessor<K, V> {
         val options: ParallelConsumerOptions<K, V> = ParallelConsumerOptions.builder<K, V>()
             .ordering(ordering)
-            .maxConcurrency(maxConcurrency)
+            .maxConcurrency(concurrency)
             .batchSize(batchSize)
             .consumer(
                 kafkaConsumerFactory.createConsumer(

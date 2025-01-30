@@ -12,24 +12,24 @@ class UserController(
 
     @PostMapping("/send")
     fun send() {
-        createUserMessages().forEach { userMessageProducer.sendMessage(it) }
+        generateUserMessages().forEach { userMessageProducer.sendMessage(it) }
     }
 
     @PostMapping("/parallel-send")
     fun parallelSend() {
-        createUserMessages().forEach { userMessageProducer.sendParallelMessage(it) }
+        generateUserMessages().forEach { userMessageProducer.sendParallelMessage(it) }
     }
 
     @PostMapping("/batch-parallel-send")
     fun batchParallelSend() {
-        createUserMessages().forEach { userMessageProducer.sendBatchParallelMessage(it) }
+        generateUserMessages().forEach { userMessageProducer.sendBatchParallelMessage(it) }
     }
 
-    private fun createUserMessages() = (1..10).map { index ->
+    private fun generateUserMessages() = (1..100).map { index ->
         UserMessage(
             id = index.toLong(),
             age = index.toLong(),
-            "name$index",
+            name = "name$index",
         )
     }
 }

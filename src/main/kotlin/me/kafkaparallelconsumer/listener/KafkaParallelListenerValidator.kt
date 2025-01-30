@@ -6,12 +6,12 @@ import org.springframework.stereotype.Component
 class KafkaParallelListenerValidator {
 
     fun validate(kafkaParallelListener: KafkaParallelListener) {
-        validateMaxConcurrency(kafkaParallelListener.maxConcurrency)
+        validateConcurrency(kafkaParallelListener.concurrency)
         validateBatchSize(kafkaParallelListener.batchSize)
     }
 
-    private fun validateMaxConcurrency(maxConcurrency: Int) {
-        require(maxConcurrency > 0) { "maxConcurrency must be greater than 0" }
+    private fun validateConcurrency(concurrency: Int) {
+        require(concurrency > 0) { "concurrency must be greater than 0" }
     }
 
     private fun validateBatchSize(batchSize: Int) {

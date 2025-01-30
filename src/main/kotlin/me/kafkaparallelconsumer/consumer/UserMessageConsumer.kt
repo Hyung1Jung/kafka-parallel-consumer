@@ -13,7 +13,6 @@ import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.kafka.support.Acknowledgment
 import org.springframework.stereotype.Component
 
-
 @Component
 class UserMessageConsumer(
     private val objectMapper: ObjectMapper,
@@ -22,7 +21,7 @@ class UserMessageConsumer(
     @KafkaListener(
         topics = [USER_TOPIC],
         groupId = "user-consumer-group",
-        concurrency = "1"
+        concurrency = "2"
     )
     fun listen(
         record: ConsumerRecord<String, String>,
@@ -42,7 +41,7 @@ class UserMessageConsumer(
     @KafkaParallelListener(
         topics = [PARALLEL_USER_TOPIC],
         groupId = "parallel-user-consumer-group",
-        maxConcurrency = 3,
+        concurrency = 2,
         ordering = ParallelConsumerOptions.ProcessingOrder.UNORDERED
     )
     fun listen(
@@ -50,7 +49,7 @@ class UserMessageConsumer(
     ) {
         try {
             val message = objectMapper.readValue(record.value(), UserMessage::class.java)
-            log.info("[Main Consumer(${Thread.currentThread().id})] Message arrived! - $message")
+            log.info("[Thread ${Thread.currentThread().id}] Partition ${record.partition()} - Message arrived! - $message")
             Thread.sleep(1000)
         } catch (e: InterruptedException) {
             e.printStackTrace()
@@ -61,7 +60,7 @@ class UserMessageConsumer(
     @KafkaParallelListener(
         topics = [BATCH_PARALLEL_USER_TOPIC],
         groupId = "batch-parallel-user-consumer-group",
-        maxConcurrency = 1,
+        concurrency = 1,
         batchSize = 10,
         ordering = ParallelConsumerOptions.ProcessingOrder.UNORDERED
     )
