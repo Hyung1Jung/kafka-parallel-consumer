@@ -18,7 +18,10 @@ class KafkaParallelStreamProcessor(
     private val kafkaParallelConsumerFactory = KafkaParallelStreamProcessorFactory<String, Any>()
     private val consumers = mutableListOf<ParallelStreamProcessor<String, Any>>()
 
-    override fun postProcessAfterInitialization(bean: Any, beanName: String): Any? {
+    override fun postProcessAfterInitialization(
+        bean: Any,
+        beanName: String
+    ): Any? {
         bean.javaClass.methods
             .mapNotNull { method -> method.getAnnotation(KafkaParallelListener::class.java)?.let { method to it } }
             .forEach { (method, annotation) -> processKafkaParallelListenerMethod(bean, method, annotation) }
