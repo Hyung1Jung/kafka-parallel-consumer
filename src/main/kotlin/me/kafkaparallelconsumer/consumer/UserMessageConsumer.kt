@@ -29,7 +29,7 @@ class UserMessageConsumer(
     ) {
         try {
             val message = objectMapper.readValue(record.value(), UserMessage::class.java)
-            log.info("[Main Consumer(${Thread.currentThread().id})] Message arrived! - $message")
+            log.info("[Thread ${Thread.currentThread().id}] Partition ${record.partition()} - Message - $message")
             Thread.sleep(1000)
             acknowledgment.acknowledge()
         } catch (e: InterruptedException) {
@@ -49,7 +49,7 @@ class UserMessageConsumer(
     ) {
         try {
             val message = objectMapper.readValue(record.value(), UserMessage::class.java)
-            log.info("[Thread ${Thread.currentThread().id}] Partition ${record.partition()} - Message arrived! - $message")
+            log.info("[Thread ${Thread.currentThread().id}] Partition ${record.partition()} - Message - $message")
             Thread.sleep(1000)
         } catch (e: InterruptedException) {
             e.printStackTrace()
@@ -69,7 +69,8 @@ class UserMessageConsumer(
     ) {
         try {
             val messages = records.map { it.value() }
-            log.info("[Main Consumer(${Thread.currentThread().id})] Messages arrived! - $messages")
+            val partitions = records.map { it.partition() }
+            log.info("[Thread ${Thread.currentThread().id}] Partitions ${partitions} - Messages - $messages")
             Thread.sleep(1000)
         } catch (e: InterruptedException) {
             e.printStackTrace()
