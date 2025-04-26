@@ -3,6 +3,7 @@ package me.kafkaparallelconsumer.listener
 import io.confluent.parallelconsumer.ParallelConsumerOptions
 import io.confluent.parallelconsumer.ParallelStreamProcessor
 import org.springframework.kafka.core.ConsumerFactory
+import java.time.Duration
 
 class KafkaParallelStreamProcessorFactory<K, V> {
 
@@ -27,6 +28,7 @@ class KafkaParallelStreamProcessorFactory<K, V> {
                     clientIdSuffix,
                 ),
             )
+            .commitInterval(Duration.ofMillis(500))
             .build()
         val eosStreamProcessor = ParallelStreamProcessor.createEosStreamProcessor(options)
         eosStreamProcessor.subscribe(topics.toList())
